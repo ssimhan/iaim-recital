@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balagokulam - IAIM Recital</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -15,6 +15,38 @@
         .hidden {
             display: none !important;
         }
+
+        /* Fallback if style.css fails */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #app-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .song-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 </head>
 
@@ -22,7 +54,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="logo.png" alt="IAIM Logo" class="logo" onclick="location.reload()">
+            <img src="logo.png" alt="IAIM Logo" class="logo" style="max-height: 50px;" onclick="location.reload()">
         </div>
         <h1 id="page-title">Balagokulam</h1>
     </header>
@@ -31,20 +63,21 @@
         <!-- Views -->
 
         <!-- List View -->
-        <div id="view-list" class="view-container fade-in">
+        <div id="view-list" class="view-container">
             <div class="list-group" id="song-list-container">
-                <!-- Items injected via JS -->
+                <p style="text-align:center; color:#999;">Loading songs...</p>
             </div>
         </div>
 
         <!-- Detail View -->
-        <div id="view-detail" class="view-container fade-in hidden">
-            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+        <div id="view-detail" class="view-container hidden">
+            <button class="btn-back" onclick="showList()"
+                style="margin-bottom:15px; padding:8px 16px; cursor:pointer;">← Back to Songs</button>
 
             <h2 id="song-title-display" class="song-title"></h2>
 
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('videos')">Videos</button>
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab('videos')" style="margin-right:10px;">Videos</button>
                 <button class="tab-btn" onclick="switchTab('lyrics')">Lyrics</button>
             </div>
 
@@ -52,14 +85,26 @@
                 <div id="video-list-container" class="video-container"></div>
             </div>
 
-            <div id="tab-content-lyrics" class="tab-content">
-                <div id="lyrics-display" class="lyrics-box" style="white-space: pre-wrap;"></div>
+            <div id="tab-content-lyrics" class="tab-content hidden">
+                <div id="lyrics-display" class="lyrics-box"
+                    style="white-space: pre-wrap; background:#fff; padding:20px; border-radius:8px;"></div>
             </div>
         </div>
 
     </main>
 
     <script>
+        window.onerror = function (msg, url, line) {
+            const container = document.getElementById('app-container');
+            if (container) {
+                container.innerHTML = '<div style="background:#fee; color:red; padding:20px; border:1px solid red; border-radius:8px; margin-top:20px;">' +
+                    '<h3>Something went wrong</h3>' +
+                    '<p>' + msg + '</p>' +
+                    '<small>Line: ' + line + '</small>' +
+                    '</div>';
+            }
+        };
+
         // --- DATA ---
         const CHOIR_DATA = {
             id: 'balagokulam',
@@ -113,25 +158,26 @@ gopala lala bala radha krishna jai`,
         const songListContainer = document.getElementById('song-list-container');
         const pageTitle = document.getElementById('page-title');
 
-        // Elements for Details
         const songTitleDisplay = document.getElementById('song-title-display');
         const videoListContainer = document.getElementById('video-list-container');
         const lyricsDisplay = document.getElementById('lyrics-display');
+
+        const tabContentVideos = document.getElementById('tab-content-videos');
+        const tabContentLyrics = document.getElementById('tab-content-lyrics');
 
         function init() {
             renderList();
         }
 
         function renderList() {
+            if (!songListContainer) return;
             songListContainer.innerHTML = '';
             CHOIR_DATA.songs.forEach(song => {
                 const item = document.createElement('div');
                 item.className = 'song-item';
-                item.onclick = () => showDetail(song);
-                item.innerHTML = `
-                    <span class="song-item-title">${song.title}</span>
-                    <span class="arrow-icon">›</span>
-                `;
+                item.onclick = function () { showDetail(song); };
+                item.innerHTML = '<span class="song-item-title">' + song.title + '</span>' +
+                    '<span class="arrow-icon" style="color:#ccc;">›</span>';
                 songListContainer.appendChild(item);
             });
         }
@@ -144,71 +190,61 @@ gopala lala bala radha krishna jai`,
         }
 
         function showDetail(song) {
-            // Populate content
             songTitleDisplay.textContent = song.title;
             lyricsDisplay.textContent = song.lyrics || 'Lyrics coming soon...';
 
-            // Videos
             videoListContainer.innerHTML = '';
             if (song.videos && song.videos.length > 0) {
                 song.videos.forEach(video => {
+                    let embedUrl = video.url;
+
                     if (!video.url) {
-                        videoListContainer.innerHTML += `
-                            <div class="video-card">
-                                <div class="video-header">${video.title}</div>
-                                <div class="video-wrapper" style="background:#eee; display:flex; align-items:center; justify-content:center;">
-                                    <span style="color:#666; font-size:0.9rem; padding:20px; text-align:center;">Video coming soon...</span>
-                                </div>
-                            </div>`;
+                        videoListContainer.innerHTML += '<div class="video-card"><p>Video coming soon...</p></div>';
                         return;
                     }
 
-                    let embedUrl = video.url;
                     try {
                         if (video.url.includes('youtube.com/watch?v=')) {
-                            embedUrl = `https://www.youtube.com/embed/${video.url.split('v=')[1].split('&')[0]}`;
+                            embedUrl = 'https://www.youtube.com/embed/' + video.url.split('v=')[1].split('&')[0];
                         } else if (video.url.includes('youtu.be/')) {
-                            embedUrl = `https://www.youtube.com/embed/${video.url.split('youtu.be/')[1].split('?')[0]}`;
+                            embedUrl = 'https://www.youtube.com/embed/' + video.url.split('youtu.be/')[1].split('?')[0];
                         }
                     } catch (e) { console.error('Error parsing video URL', e); }
 
-                    videoListContainer.innerHTML += `
-                        <div class="video-card">
-                            <div class="video-header">${video.title}</div>
-                            <div class="video-wrapper">
-                                <iframe src="${embedUrl}" allowfullscreen></iframe>
-                            </div>
-                        </div>`;
+                    videoListContainer.innerHTML += '<div class="video-card" style="margin-bottom:20px;">' +
+                        '<div class="video-header" style="font-weight:600; margin-bottom:5px;">' + video.title + '</div>' +
+                        '<div class="video-wrapper" style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">' +
+                        '<iframe src="' + embedUrl + '" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>' +
+                        '</div></div>';
                 });
             } else {
                 videoListContainer.innerHTML = '<p style="text-align:center; color:#666;">No videos available yet.</p>';
             }
 
-            // Switch view
             viewList.classList.add('hidden');
             viewDetail.classList.remove('hidden');
             pageTitle.textContent = song.title;
 
-            // Reset tabs
             switchTab('videos');
             window.scrollTo(0, 0);
         }
 
         function switchTab(tabName) {
-            // Update Buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            // Simple indexing: 0=Videos, 1=Lyrics
             const buttons = document.querySelectorAll('.tab-btn');
-            if (tabName === 'videos') buttons[0].classList.add('active');
-            else buttons[1].classList.add('active');
+            buttons.forEach(btn => btn.style.fontWeight = 'normal');
 
-            // Update Content
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(`tab-content-${tabName}`).classList.add('active');
+            if (tabName === 'videos') {
+                if (buttons[0]) buttons[0].style.fontWeight = 'bold';
+                tabContentVideos.classList.remove('hidden');
+                tabContentLyrics.classList.add('hidden');
+            } else {
+                if (buttons[1]) buttons[1].style.fontWeight = 'bold';
+                tabContentVideos.classList.add('hidden');
+                tabContentLyrics.classList.remove('hidden');
+            }
         }
 
-        // Init on load
-        document.addEventListener('DOMContentLoaded', init);
+        window.onload = init;
 
     </script>
 </body>
