@@ -4,48 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAIM Recital Practice</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <title>Balagokulam - IAIM Recital</title>
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;600&display=swap"
         rel="stylesheet">
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
 
     <header>
         <div class="logo-container">
-            <img src="logo.png" alt="IAIM Logo" class="logo" onclick="goHome()">
+            <img src="logo.png" alt="IAIM Logo" class="logo" onclick="location.reload()">
         </div>
-        <!-- Breadcrumb / Header Title will be dynamic -->
-        <h1 id="page-title">Recital Practice</h1>
+        <h1 id="page-title">Balagokulam</h1>
     </header>
 
     <main id="app-container">
-        <!-- Views will be injected here by script.js -->
-    </main>
+        <!-- Views -->
 
-    <!-- Templates for Views -->
-
-    <!-- 1. Landing View (Choir Selection) REMOVED -->
-
-    <!-- 2. Choir View (Song Selection) -->
-    <template id="choir-template">
-        <div class="view-container fade-in">
-
-
-            <div class="list-group" id="song-list">
-                <!-- Song List Items injected here -->
+        <!-- List View -->
+        <div id="view-list" class="view-container fade-in">
+            <div class="list-group" id="song-list-container">
+                <!-- Items injected via JS -->
             </div>
         </div>
-    </template>
 
-    <!-- 3. Song View (Lyrics & Videos) -->
-    <template id="song-template">
-        <div class="view-container fade-in">
-            <button class="btn-back" onclick="goBackToChoir()">← Back to Songs</button>
+        <!-- Detail View -->
+        <div id="view-detail" class="view-container fade-in hidden">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
 
             <h2 id="song-title-display" class="song-title"></h2>
 
@@ -55,22 +49,168 @@
             </div>
 
             <div id="tab-content-videos" class="tab-content active">
-                <div id="video-list" class="video-container">
-                    <!-- Videos injected here -->
-                </div>
+                <div id="video-list-container" class="video-container"></div>
             </div>
 
             <div id="tab-content-lyrics" class="tab-content">
-                <div id="lyrics-display" class="lyrics-box">
-                    <!-- Lyrics injected here -->
-                </div>
+                <div id="lyrics-display" class="lyrics-box" style="white-space: pre-wrap;"></div>
             </div>
         </div>
-    </template>
 
-    <script src="data.js?v=2"></script>
-    <script>window.TARGET_CHOIR_ID = 'balagokulam';</script>
-    <script src="script.js?v=2"></script>
+    </main>
+
+    <script>
+        // --- DATA ---
+        const CHOIR_DATA = {
+            id: 'balagokulam',
+            name: 'Balagokulam',
+            subtitle: 'Year 1 Kids',
+            songs: [
+                {
+                    id: 'govinda-krishna-jai',
+                    title: 'Govinda Krishna Jai',
+                    lyrics: `govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai
+govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai
+
+krishna jai ... { gap for 2 beats } ... krishna jai { gap for 2 beats } ... krishna jai ... { gap for 2 beats }
+krishna jai ... { extend jai } ... krishna jai { extend jai } ... krishna jai ... { gap for 2 beats }
+gopala lala bala radha krishna jai
+
+gopika bala lola pyaari ... { gap for 4 beats }
+maya leela mana vihaari ... { gap for 4 beats }
+madhana mohana murali dhaari ... { gap for 4 beats }
+
+gopika bala lola pyaari
+maya leela mana vihaari
+madhana mohana murali dhaari ... { gap for 4 beats }
+gopala lala bala radha krishna jai
+
+govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai { vinda has RSR and pala has DPD variation }
+krishna jai ... { gap for 2 beats } ... krishna jai { gap for 2 beats } ... krishna jai ... { gap for 2 beats }
+krishna jai ... { extend jai } ... krishna jai { extend jai } ... krishna jai ... { gap for 2 beats }
+
+gopala lala bala radha krishna jai
+gopala lala bala radha krishna jai
+gopala lala bala radha krishna jai`,
+                    videos: [
+                        { title: 'Learning Module', url: 'https://share.descript.com/embed/EZCr9t8rMXV' }
+                    ]
+                },
+                {
+                    id: 'maadumekam',
+                    title: 'Maadumekam',
+                    lyrics: `(Lyrics coming soon...)`,
+                    videos: [
+                        { title: 'Learning Module 1', url: '' }
+                    ]
+                }
+            ]
+        };
+
+        // --- LOGIC ---
+        const viewList = document.getElementById('view-list');
+        const viewDetail = document.getElementById('view-detail');
+        const songListContainer = document.getElementById('song-list-container');
+        const pageTitle = document.getElementById('page-title');
+
+        // Elements for Details
+        const songTitleDisplay = document.getElementById('song-title-display');
+        const videoListContainer = document.getElementById('video-list-container');
+        const lyricsDisplay = document.getElementById('lyrics-display');
+
+        function init() {
+            renderList();
+        }
+
+        function renderList() {
+            songListContainer.innerHTML = '';
+            CHOIR_DATA.songs.forEach(song => {
+                const item = document.createElement('div');
+                item.className = 'song-item';
+                item.onclick = () => showDetail(song);
+                item.innerHTML = `
+                    <span class="song-item-title">${song.title}</span>
+                    <span class="arrow-icon">›</span>
+                `;
+                songListContainer.appendChild(item);
+            });
+        }
+
+        function showList() {
+            viewDetail.classList.add('hidden');
+            viewList.classList.remove('hidden');
+            pageTitle.textContent = CHOIR_DATA.name;
+            window.scrollTo(0, 0);
+        }
+
+        function showDetail(song) {
+            // Populate content
+            songTitleDisplay.textContent = song.title;
+            lyricsDisplay.textContent = song.lyrics || 'Lyrics coming soon...';
+
+            // Videos
+            videoListContainer.innerHTML = '';
+            if (song.videos && song.videos.length > 0) {
+                song.videos.forEach(video => {
+                    if (!video.url) {
+                        videoListContainer.innerHTML += `
+                            <div class="video-card">
+                                <div class="video-header">${video.title}</div>
+                                <div class="video-wrapper" style="background:#eee; display:flex; align-items:center; justify-content:center;">
+                                    <span style="color:#666; font-size:0.9rem; padding:20px; text-align:center;">Video coming soon...</span>
+                                </div>
+                            </div>`;
+                        return;
+                    }
+
+                    let embedUrl = video.url;
+                    try {
+                        if (video.url.includes('youtube.com/watch?v=')) {
+                            embedUrl = `https://www.youtube.com/embed/${video.url.split('v=')[1].split('&')[0]}`;
+                        } else if (video.url.includes('youtu.be/')) {
+                            embedUrl = `https://www.youtube.com/embed/${video.url.split('youtu.be/')[1].split('?')[0]}`;
+                        }
+                    } catch (e) { console.error('Error parsing video URL', e); }
+
+                    videoListContainer.innerHTML += `
+                        <div class="video-card">
+                            <div class="video-header">${video.title}</div>
+                            <div class="video-wrapper">
+                                <iframe src="${embedUrl}" allowfullscreen></iframe>
+                            </div>
+                        </div>`;
+                });
+            } else {
+                videoListContainer.innerHTML = '<p style="text-align:center; color:#666;">No videos available yet.</p>';
+            }
+
+            // Switch view
+            viewList.classList.add('hidden');
+            viewDetail.classList.remove('hidden');
+            pageTitle.textContent = song.title;
+
+            // Reset tabs
+            switchTab('videos');
+            window.scrollTo(0, 0);
+        }
+
+        function switchTab(tabName) {
+            // Update Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            // Simple indexing: 0=Videos, 1=Lyrics
+            const buttons = document.querySelectorAll('.tab-btn');
+            if (tabName === 'videos') buttons[0].classList.add('active');
+            else buttons[1].classList.add('active');
+
+            // Update Content
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(`tab-content-${tabName}`).classList.add('active');
+        }
+
+        // Init on load
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
 </body>
 
 </html>

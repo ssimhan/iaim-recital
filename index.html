@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IAIM Recital Practice</title>
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,67 +17,30 @@
 
     <header>
         <div class="logo-container">
-            <img src="logo.png" alt="IAIM Logo" class="logo" onclick="goHome()">
+            <img src="logo.png" alt="IAIM Logo" class="logo">
         </div>
-        <!-- Breadcrumb / Header Title will be dynamic -->
         <h1 id="page-title">Recital Practice</h1>
     </header>
 
     <main id="app-container">
-        <!-- Views will be injected here by script.js -->
-    </main>
-
-    <!-- Templates for Views -->
-
-    <!-- 1. Landing View (Choir Selection) -->
-    <template id="landing-template">
         <div class="view-container fade-in">
             <p class="welcome-text">Select your choir to begin practice</p>
-            <div class="card-grid" id="choir-list">
-                <!-- Choir Cards injected here -->
-            </div>
-        </div>
-    </template>
+            <div class="card-grid">
 
-    <!-- 2. Choir View (Song Selection) -->
-    <template id="choir-template">
-        <div class="view-container fade-in">
-
-
-            <div class="list-group" id="song-list">
-                <!-- Song List Items injected here -->
-            </div>
-        </div>
-    </template>
-
-    <!-- 3. Song View (Lyrics & Videos) -->
-    <template id="song-template">
-        <div class="view-container fade-in">
-            <button class="btn-back" onclick="goBackToChoir()">← Back to Songs</button>
-
-            <h2 id="song-title-display" class="song-title"></h2>
-
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('videos')">Videos</button>
-                <button class="tab-btn" onclick="switchTab('lyrics')">Lyrics</button>
-            </div>
-
-            <div id="tab-content-videos" class="tab-content active">
-                <div id="video-list" class="video-container">
-                    <!-- Videos injected here -->
+                <div class="choir-card" onclick="window.location.href='brindavanam.html'">
+                    <h3>Brindavanam</h3>
+                    <p>Older Kids</p>
                 </div>
-            </div>
 
-            <div id="tab-content-lyrics" class="tab-content">
-                <div id="lyrics-display" class="lyrics-box">
-                    <!-- Lyrics injected here -->
+                <div class="choir-card" onclick="window.location.href='balagokulam.html'">
+                    <h3>Balagokulam</h3>
+                    <p>Year 1 Kids</p>
                 </div>
+
             </div>
         </div>
-    </template>
+    </main>
 
-    <script src="data.js?v=2"></script>
-    <script src="script.js?v=2"></script>
 </body>
 
 </html>
