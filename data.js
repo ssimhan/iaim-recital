@@ -58,13 +58,31 @@ tannō̍ viṣṇuḥ prachō̠dayā̎t ॥`,
             {
                 id: 'govinda-krishna-jai',
                 title: 'Govinda Krishna Jai',
-                lyrics: `(Lyrics coming soon...)
+                lyrics: `govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai
+govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai
 
-Govinda Krishna Jai, Gopala Krishna Jai
-Govinda Govinda Govinda Krishna Jai
-...`,
+krishna jai ... { gap for 2 beats } ... krishna jai { gap for 2 beats } ... krishna jai ... { gap for 2 beats }
+krishna jai ... { extend jai } ... krishna jai { extend jai } ... krishna jai ... { gap for 2 beats }
+gopala lala bala radha krishna jai
+
+gopika bala lola pyaari ... { gap for 4 beats }
+maya leela mana vihaari ... { gap for 4 beats }
+madhana mohana murali dhaari ... { gap for 4 beats }
+
+gopika bala lola pyaari
+maya leela mana vihaari
+madhana mohana murali dhaari ... { gap for 4 beats }
+gopala lala bala radha krishna jai
+
+govinda krishna jai gopala krishna jai gopala lala bala radha krishna jai { vinda has RSR and pala has DPD variation }
+krishna jai ... { gap for 2 beats } ... krishna jai { gap for 2 beats } ... krishna jai ... { gap for 2 beats }
+krishna jai ... { extend jai } ... krishna jai { extend jai } ... krishna jai ... { gap for 2 beats }
+
+gopala lala bala radha krishna jai
+gopala lala bala radha krishna jai
+gopala lala bala radha krishna jai`,
                 videos: [
-                    { title: 'Learning Module 1', url: '' }
+                    { title: 'Learning Module', url: 'https://share.descript.com/embed/EZCr9t8rMXV' }
                 ]
             },
             {
