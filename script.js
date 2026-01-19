@@ -13,15 +13,26 @@ const songTemplate = document.getElementById('song-template');
 
 // Initialize App
 function init() {
-    renderLanding();
+    // Check for global config injected by HTML file
+    if (window.TARGET_CHOIR_ID) {
+        selectChoir(window.TARGET_CHOIR_ID);
+    } else {
+        renderLanding();
+    }
 }
 
 // Navigation Functions
 function goHome() {
-    currentChoirId = null;
-    currentSongId = null;
-    renderLanding();
-    window.scrollTo(0, 0);
+    // If we are in "single choir mode" (via HTML file), we just reset to that choir's song list
+    if (window.TARGET_CHOIR_ID) {
+        renderChoir(window.TARGET_CHOIR_ID);
+    } else {
+        // Only if we are on the main landing page do we go back to the landing view
+        currentChoirId = null;
+        currentSongId = null;
+        renderLanding();
+        window.scrollTo(0, 0);
+    }
 }
 
 function selectChoir(choirId) {
@@ -58,7 +69,10 @@ function renderLanding() {
     RECITAL_DATA.forEach(choir => {
         const card = document.createElement('div');
         card.className = 'choir-card';
-        card.onclick = () => selectChoir(choir.id);
+        // Link to separate HTML files
+        card.onclick = () => {
+            window.location.href = `${choir.id}.html`;
+        };
 
         card.innerHTML = `
             <h3>${choir.name}</h3>
@@ -75,7 +89,17 @@ function renderLanding() {
 
 function renderChoir(choirId) {
     const choirData = RECITAL_DATA.find(c => c.id === choirId);
-    if (!choirData) return goHome();
+
+    // Safety check
+    if (!choirData) {
+        // If we are in a targeted HTML file but the ID is wrong, there's not much we can do.
+        // If we are on index.html, we go home.
+        if (!window.TARGET_CHOIR_ID) {
+            return goHome();
+        }
+        return;
+    }
+
 
     appContainer.innerHTML = '';
 
