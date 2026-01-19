@@ -53,7 +53,7 @@
                 <div id="video-list-container" class="video-container"></div>
             </div>
 
-            <div id="tab-content-lyrics" class="tab-content hidden">
+            <div id="tab-content-lyrics" class="tab-content">
                 <div id="lyrics-display" class="lyrics-box"
                     style="white-space: pre-wrap; background:#fff; padding:20px; border-radius:8px;"></div>
             </div>
@@ -203,12 +203,12 @@ gopala lala bala radha krishna jai`,
 
             if (tabName === 'videos') {
                 if (buttons[0]) buttons[0].style.fontWeight = 'bold';
-                tabContentVideos.classList.remove('hidden');
-                tabContentLyrics.classList.add('hidden');
+                tabContentVideos.classList.add('active');
+                tabContentLyrics.classList.remove('active');
             } else {
                 if (buttons[1]) buttons[1].style.fontWeight = 'bold';
-                tabContentVideos.classList.add('hidden');
-                tabContentLyrics.classList.remove('hidden');
+                tabContentVideos.classList.remove('active');
+                tabContentLyrics.classList.add('active');
             }
         }
 
