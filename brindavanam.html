@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brindavanam - IAIM Recital</title>
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,7 +16,48 @@
             display: none !important;
         }
 
-        /* Fallback if style.css fails */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .lyrics-box {
+            white-space: pre-wrap;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .tab-btn {
+            font-weight: normal;
+        }
+
+        .tab-btn.active {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -30,198 +71,140 @@
     </header>
 
     <main id="app-container">
-        <!-- Views -->
 
-        <!-- List View -->
+        <!-- LIST VIEW -->
         <div id="view-list" class="view-container">
-            <div class="list-group" id="song-list-container">
-                <!-- Fallback content in case JS fails -->
-                <p style="text-align:center; color:#999;">Loading songs...</p>
+            <div class="list-group">
+                <!-- Hardcoded Song Items -->
+                <div class="song-item" onclick="showSong('radhe-shyam')">
+                    <span class="song-item-title">Radhe Shyam</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+                <div class="song-item" onclick="showSong('narayana-suktam')">
+                    <span class="song-item-title">Narayana Suktam</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
             </div>
         </div>
 
-        <!-- Detail View -->
-        <div id="view-detail" class="view-container hidden">
-            <button class="btn-back" onclick="showList()"
-                style="margin-bottom:15px; padding:8px 16px; cursor:pointer;">← Back to Songs</button>
-
-            <h2 id="song-title-display" class="song-title"></h2>
+        <!-- SONG: Radhe Shyam -->
+        <div id="song-radhe-shyam" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Radhe Shyam</h2>
 
             <div class="tabs" style="margin-bottom:20px;">
-                <button class="tab-btn active" onclick="switchTab('videos')" style="margin-right:10px;">Videos</button>
-                <button class="tab-btn" onclick="switchTab('lyrics')">Lyrics</button>
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
             </div>
 
-            <div id="tab-content-videos" class="tab-content active">
-                <div id="video-list-container" class="video-container"></div>
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper">
+                        <iframe src="https://share.descript.com/embed/s83BqlbfQze" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
 
-            <div id="tab-content-lyrics" class="tab-content">
-                <div id="lyrics-display" class="lyrics-box"
-                    style="white-space: pre-wrap; background:#fff; padding:20px; border-radius:8px;"></div>
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">Radhe shyama radhe Shyam
+                    Radha Madhava radhe Shyam (x2)
+
+                    Adi Narayana radhe Shyam (x2)
+                    Anadi purusha Megha Shyam (x2)
+
+                    Vasudeva Hari radhe Shyam (x2)
+                    Vasuki Shayana Megha Shyam (x2)
+
+                    Vasudeva Hari radhe Shyam
+                    Vasuki Shayana Megha Shyam
+
+                    Radhe shyama radhe Shyam
+                    Radha Madhava radhe Shyam (x2)
+
+                    Shrisha Ramesh radhe Shyam (x2)
+                    Keshava Achutha Megha Shyam (x2)
+
+                    Sesha Shayana Hari radhe Shyam (x2)
+
+                    Dasaki shavanutha Megha Shyam
+                    Dasaki shavanutha radhe Shyam
+
+                    Radhe shyama radhe Shyam
+                    Radha Madhava radhe Shyam (x3)</div>
+            </div>
+        </div>
+
+        <!-- SONG: Narayana Suktam -->
+        <div id="song-narayana-suktam" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Narayana Suktam</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module 1</div>
+                    <!-- Placeholder if no URL -->
+                    <div class="video-wrapper"
+                        style="background:#eee; display:flex; align-items:center; justify-content:center;">
+                        <span style="color:#666;">Video coming soon...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">ṛtagṃ sa̠tya-mpa̍ra-mbra̠hma̠ pu̠ruṣa̍m-kṛṣṇa̠piṅga̍lam ।
+                    ū̠rdhvarē̍taṃ vi̍rūpā̠kṣa̠ṃ vi̠śvarū̍pāya̠ vai namō̠ nama̍ḥ ॥
+                    nnā̠rā̠ya̠ṇāya̍ vi̠dmahē̍ vāsudē̠vāya̍ dhīmahi ।
+                    tannō̍ viṣṇuḥ prachō̠dayā̎t ॥</div>
             </div>
         </div>
 
     </main>
 
     <script>
-        // Global Error Handler for Debugging
-        window.onerror = function (msg, url, line) {
-            const container = document.getElementById('app-container');
-            if (container) {
-                container.innerHTML = '<div style="background:#fee; color:red; padding:20px; border:1px solid red; border-radius:8px; margin-top:20px;">' +
-                    '<h3>Something went wrong</h3>' +
-                    '<p>' + msg + '</p>' +
-                    '<small>Line: ' + line + '</small>' +
-                    '</div>';
-            }
-        };
-
-        // --- DATA ---
-        const CHOIR_DATA = {
-            id: 'brindavanam',
-            name: 'Brindavanam',
-            subtitle: 'Older Kids',
-            songs: [
-                {
-                    id: 'radhe-shyam',
-                    title: 'Radhe Shyam',
-                    lyrics: `Radhe shyama radhe Shyam
-Radha Madhava radhe Shyam
-
-Adi Narayana radhe Shyam 
-Anadi  purusha Megha Shyam
-
-Vasudeva Hari radhe Shyam 
-Vasuki Shayana Megha Shyam ( radhe Shyam )
-
-Shrisha Ramesh radhe Shyam 
-Keshava Achutha Megha Shyam
-
-Sesha Shayana Hari radhe Shyam
-Dasaki shavanutha Megha Shyam ( radhe Shyam )`,
-                    videos: [
-                        { title: 'Learning Module', url: 'https://share.descript.com/embed/s83BqlbfQze' }
-                    ]
-                },
-                {
-                    id: 'narayana-suktam',
-                    title: 'Narayana Suktam',
-                    lyrics: `ṛtagṃ sa̠tya-mpa̍ra-mbra̠hma̠ pu̠ruṣa̍m-kṛṣṇa̠piṅga̍lam ।
-ū̠rdhvarē̍taṃ vi̍rūpā̠kṣa̠ṃ vi̠śvarū̍pāya̠ vai namō̠ nama̍ḥ ॥
-nnā̠rā̠ya̠ṇāya̍ vi̠dmahē̍ vāsudē̠vāya̍ dhīmahi ।
-tannō̍ viṣṇuḥ prachō̠dayā̎t ॥`,
-                    videos: [
-                        { title: 'Learning Module 1', url: '' }
-                    ]
-                }
-            ]
-        };
-
-        // --- LOGIC ---
-        const viewList = document.getElementById('view-list');
-        const viewDetail = document.getElementById('view-detail');
-        const songListContainer = document.getElementById('song-list-container');
-        const pageTitle = document.getElementById('page-title');
-
-        const songTitleDisplay = document.getElementById('song-title-display');
-        const videoListContainer = document.getElementById('video-list-container');
-        const lyricsDisplay = document.getElementById('lyrics-display');
-
-        // Tab Content Elements
-        const tabContentVideos = document.getElementById('tab-content-videos');
-        const tabContentLyrics = document.getElementById('tab-content-lyrics');
-
-        function init() {
-            console.log('Initializing Brindavanam...');
-            renderList();
-        }
-
-        function renderList() {
-            if (!songListContainer) return;
-            songListContainer.innerHTML = '';
-            CHOIR_DATA.songs.forEach(song => {
-                const item = document.createElement('div');
-                item.className = 'song-item';
-                item.onclick = function () { showDetail(song); }; // explicit function reference
-                item.innerHTML = '<span class="song-item-title">' + song.title + '</span>' +
-                    '<span class="arrow-icon" style="color:#ccc;">›</span>';
-                songListContainer.appendChild(item);
-            });
-        }
-
         function showList() {
-            viewDetail.classList.add('hidden');
-            viewList.classList.remove('hidden');
-            pageTitle.textContent = CHOIR_DATA.name;
+            // Hide all song details
+            document.querySelectorAll('.song-detail').forEach(el => el.classList.add('hidden'));
+            // Show list
+            document.getElementById('view-list').classList.remove('hidden');
             window.scrollTo(0, 0);
         }
 
-        function showDetail(song) {
-            // Populate content
-            songTitleDisplay.textContent = song.title;
-            lyricsDisplay.textContent = song.lyrics || 'Lyrics coming soon...';
+        function showSong(id) {
+            // Hide list
+            document.getElementById('view-list').classList.add('hidden');
+            // Show specific song div
+            document.getElementById('song-' + id).classList.remove('hidden');
 
-            // Videos
-            videoListContainer.innerHTML = '';
-            if (song.videos && song.videos.length > 0) {
-                song.videos.forEach(video => {
-                    let embedUrl = video.url;
+            // Reset tabs for this song to video
+            const songDiv = document.getElementById('song-' + id);
+            const firstTabBtn = songDiv.querySelector('.tab-btn');
+            if (firstTabBtn) switchTab(firstTabBtn, 'video');
 
-                    if (!video.url) {
-                        videoListContainer.innerHTML += '<div class="video-card"><p>Video coming soon...</p></div>';
-                        return;
-                    }
-
-                    try {
-                        if (video.url.includes('youtube.com/watch?v=')) {
-                            embedUrl = 'https://www.youtube.com/embed/' + video.url.split('v=')[1].split('&')[0];
-                        } else if (video.url.includes('youtu.be/')) {
-                            embedUrl = 'https://www.youtube.com/embed/' + video.url.split('youtu.be/')[1].split('?')[0];
-                        }
-                    } catch (e) { console.error('Error parsing video URL', e); }
-
-                    videoListContainer.innerHTML += '<div class="video-card" style="margin-bottom:20px;">' +
-                        '<div class="video-header" style="font-weight:600; margin-bottom:5px;">' + video.title + '</div>' +
-                        '<div class="video-wrapper" style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">' +
-                        '<iframe src="' + embedUrl + '" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>' +
-                        '</div></div>';
-                });
-            } else {
-                videoListContainer.innerHTML = '<p style="text-align:center; color:#666;">No videos available yet.</p>';
-            }
-
-            // Switch view
-            viewList.classList.add('hidden');
-            viewDetail.classList.remove('hidden');
-            pageTitle.textContent = song.title;
-
-            // Reset tabs
-            switchTab('videos');
             window.scrollTo(0, 0);
         }
 
-        function switchTab(tabName) {
-            // Update Buttons
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.style.fontWeight = 'normal');
+        function switchTab(btn, type) {
+            // Context: The tabs are inside a specific song container
+            const songContainer = btn.closest('.song-detail');
 
-            // Update Content Visibility
-            // Use .active class to control display (as per style.css)
-            if (tabName === 'videos') {
-                if (buttons[0]) buttons[0].style.fontWeight = 'bold';
-                tabContentVideos.classList.add('active');
-                tabContentLyrics.classList.remove('active');
+            // Update buttons
+            songContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update content
+            songContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            if (type === 'video') {
+                songContainer.querySelector('.content-video').classList.add('active');
             } else {
-                if (buttons[1]) buttons[1].style.fontWeight = 'bold';
-                tabContentVideos.classList.remove('active');
-                tabContentLyrics.classList.add('active');
+                songContainer.querySelector('.content-lyrics').classList.add('active');
             }
         }
-
-        // Init on load
-        window.onload = init;
-
     </script>
 </body>
 
