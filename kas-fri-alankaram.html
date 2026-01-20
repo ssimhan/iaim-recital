@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kas Fri Alankaram - IAIM Recital</title>
+    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Specific overrides if any from brindavanam.html */
+        .hidden {
+            display: none !important;
+        }
+
+        .lyrics-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 24px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .list-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .song-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .song-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .song-item-title {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-back:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+
+        .song-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            /* Reduced gap since we use borders */
+            background: #f1f3f5;
+            padding: 4px;
+            border-radius: 8px;
+            max-width: 300px;
+            /* Limit width */
+            margin: 0 auto 24px auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            background: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .video-card {
+            background: white;
+            padding: 10px;
+            /* Reduced padding */
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+        }
+
+        /* Inner text/header for video card */
+        .video-header {
+            font-family: 'Inter', sans-serif;
+            color: #444;
+            margin-bottom: 8px;
+            margin-left: 4px;
+            /* nice visual alignment */
+            background: #f8f9fa;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .tab-btn {
+            font-weight: normal;
+        }
+
+        .tab-btn.active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="IAIM Logo" class="logo" style="max-height: 50px;" onclick="location.reload()">
+        </div>
+        <h1 id="page-title">Kas Fri Alankaram</h1>
+    </header>
+
+    <main id="app-container">
+
+        <!-- LIST VIEW -->
+        <div id="view-list" class="view-container">
+            <div class="list-group">
+                <!-- Hardcoded Song Items -->
+                <div class="song-item" onclick="showSong('mudhugare-yashodha')">
+                    <span class="song-item-title">Mudhugare Yashodha</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SONG: Mudhugare Yashodha -->
+        <div id="song-mudhugare-yashodha" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Mudhugare Yashodha</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper">
+                        <iframe src="https://share.descript.com/embed/lkFEaxkwLHO" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">pallavi
+                    MuddugAre YasodA mungiti muthyamuvidu
+                    DidderAni mahimala Devaki suthudu
+
+                    caraNam 1
+                    Anthanintha gollethala arachethi mAnikyamu
+                    PanthamAdey Kamsuni pAli vajramu
+                    KAnthula moodu lokAla Garudapachapoosa
+                    Chenthala mAlonunna Chinni Krishnudu
+
+                    caraNam 2
+                    ratikeli rukminiki rangumovi pagadamu
+                    mithi gOvardhanapu Gomedikamu
+                    sathamye SankhachakrAla sandula vaidooryamu
+                    gathiyai mammu gAche KamalAkshudu
+
+                    caraNam 3
+                    kAlinguni talapye gappina pushyarAgamu
+                    yelleti Sri VenkatAdri Indraneelamu
+                    pAlajalanidhilona bAyani Divya ratnamu
+                    bAluneevale dhrigi PadmanAbhudu</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function showList() {
+            // Hide all song details
+            document.querySelectorAll('.song-detail').forEach(el => el.classList.add('hidden'));
+            // Show list
+            document.getElementById('view-list').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showSong(id) {
+            // Hide list
+            document.getElementById('view-list').classList.add('hidden');
+            // Show specific song div
+            document.getElementById('song-' + id).classList.remove('hidden');
+
+            // Reset tabs for this song to video
+            const songDiv = document.getElementById('song-' + id);
+            const firstTabBtn = songDiv.querySelector('.tab-btn');
+            if (firstTabBtn) switchTab(firstTabBtn, 'video');
+
+            window.scrollTo(0, 0);
+        }
+
+        function switchTab(btn, type) {
+            // Context: The tabs are inside a specific song container
+            const songContainer = btn.closest('.song-detail');
+
+            // Update buttons
+            songContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Update content
+            songContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            if (type === 'video') {
+                songContainer.querySelector('.content-video').classList.add('active');
+            } else {
+                songContainer.querySelector('.content-lyrics').classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
