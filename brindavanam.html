@@ -75,15 +75,139 @@
         <!-- LIST VIEW -->
         <div id="view-list" class="view-container">
             <div class="list-group">
-                <!-- Hardcoded Song Items -->
+                <!-- Mantra (was Narayana Suktam) -->
+                <div class="song-item" onclick="showSong('mantra')">
+                    <span class="song-item-title">Mantra</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+                <!-- Vasudeva Sutham Devam -->
+                <div class="song-item" onclick="showSong('vasudeva-sutham-devam')">
+                    <span class="song-item-title">Vasudeva Sutham Devam</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+                <!-- Gopika Geetham -->
+                <div class="song-item" onclick="showSong('gopika-geetham')">
+                    <span class="song-item-title">Gopika Geetham</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+                <!-- Shri Krishna Govinda (New) -->
+                <div class="song-item" onclick="showSong('shri-krishna-govinda')">
+                    <span class="song-item-title">Shri Krishna Govinda</span>
+                    <span class="arrow-icon" style="color:#ccc;">›</span>
+                </div>
+                <!-- Radhe Shyam (Existing) -->
                 <div class="song-item" onclick="showSong('radhe-shyam')">
                     <span class="song-item-title">Radhe Shyam</span>
                     <span class="arrow-icon" style="color:#ccc;">›</span>
                 </div>
-                <div class="song-item" onclick="showSong('narayana-suktam')">
-                    <span class="song-item-title">Narayana Suktam</span>
+                <!-- Radhe Radhe Govinda -->
+                <div class="song-item" onclick="showSong('radhe-radhe-govinda')">
+                    <span class="song-item-title">Radhe Radhe Govinda</span>
                     <span class="arrow-icon" style="color:#ccc;">›</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- SONG: Mantra (was Narayana Suktam) -->
+        <div id="song-mantra" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Mantra</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper">
+                        <iframe src="https://share.descript.com/embed/oqe763rqzdH" width="640" height="360"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">ṛtagṃ sa̠tya-mpa̍ra-mbra̠hma̠ pu̠ruṣa̍m-kṛṣṇa̠piṅga̍lam ।
+                    ū̠rdhvarē̍taṃ vi̍rūpā̠kṣa̠ṃ vi̠śvarū̍pāya̠ vai namō̠ nama̍ḥ ॥
+                    nnā̠rā̠ya̠ṇāya̍ vi̠dmahē̍ vāsudē̠vāya̍ dhīmahi ।
+                    tannō̍ viṣṇuḥ prachō̠dayā̎t ॥</div>
+            </div>
+        </div>
+
+        <!-- SONG: Vasudeva Sutham Devam -->
+        <div id="song-vasudeva-sutham-devam" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Vasudeva Sutham Devam</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper"
+                        style="background:#eee; display:flex; align-items:center; justify-content:center;">
+                        <span style="color:#666;">Video coming soon...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">Lyrics coming soon...</div>
+            </div>
+        </div>
+
+        <!-- SONG: Gopika Geetham -->
+        <div id="song-gopika-geetham" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Gopika Geetham</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper"
+                        style="background:#eee; display:flex; align-items:center; justify-content:center;">
+                        <span style="color:#666;">Video coming soon...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">Lyrics coming soon...</div>
+            </div>
+        </div>
+
+        <!-- SONG: Shri Krishna Govinda -->
+        <div id="song-shri-krishna-govinda" class="view-container hidden song-detail">
+            <button class="btn-back" onclick="showList()">← Back to Songs</button>
+            <h2 class="song-title">Shri Krishna Govinda</h2>
+
+            <div class="tabs" style="margin-bottom:20px;">
+                <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
+                <button class="tab-btn" onclick="switchTab(this, 'lyrics')">Lyrics</button>
+            </div>
+
+            <div class="tab-content content-video active">
+                <div class="video-card">
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper">
+                        <iframe src="https://share.descript.com/embed/gwLKhVtyr1Q" width="640" height="360"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content content-lyrics">
+                <div class="lyrics-box">Lyrics coming soon...</div>
             </div>
         </div>
 
@@ -135,10 +259,10 @@
             </div>
         </div>
 
-        <!-- SONG: Narayana Suktam -->
-        <div id="song-narayana-suktam" class="view-container hidden song-detail">
+        <!-- SONG: Radhe Radhe Govinda -->
+        <div id="song-radhe-radhe-govinda" class="view-container hidden song-detail">
             <button class="btn-back" onclick="showList()">← Back to Songs</button>
-            <h2 class="song-title">Narayana Suktam</h2>
+            <h2 class="song-title">Radhe Radhe Govinda</h2>
 
             <div class="tabs" style="margin-bottom:20px;">
                 <button class="tab-btn active" onclick="switchTab(this, 'video')">Videos</button>
@@ -147,20 +271,16 @@
 
             <div class="tab-content content-video active">
                 <div class="video-card">
-                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module 1</div>
-                    <!-- Placeholder if no URL -->
-                    <div class="video-wrapper"
-                        style="background:#eee; display:flex; align-items:center; justify-content:center;">
-                        <span style="color:#666;">Video coming soon...</span>
+                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                    <div class="video-wrapper">
+                        <iframe src="https://share.descript.com/embed/hvouEwx6s4I" width="640" height="360"
+                            frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
 
             <div class="tab-content content-lyrics">
-                <div class="lyrics-box">ṛtagṃ sa̠tya-mpa̍ra-mbra̠hma̠ pu̠ruṣa̍m-kṛṣṇa̠piṅga̍lam ।
-                    ū̠rdhvarē̍taṃ vi̍rūpā̠kṣa̠ṃ vi̠śvarū̍pāya̠ vai namō̠ nama̍ḥ ॥
-                    nnā̠rā̠ya̠ṇāya̍ vi̠dmahē̍ vāsudē̠vāya̍ dhīmahi ।
-                    tannō̍ viṣṇuḥ prachō̠dayā̎t ॥</div>
+                <div class="lyrics-box">Lyrics coming soon...</div>
             </div>
         </div>
 
