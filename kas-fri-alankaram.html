@@ -189,6 +189,18 @@
         .tab-btn.active {
             font-weight: bold;
         }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -225,17 +237,19 @@
             </div>
 
             <div class="tab-content content-video active">
-                <div class="video-card">
-                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
-                    <div class="video-wrapper">
-                        <iframe src="https://share.descript.com/embed/lkFEaxkwLHO" allowfullscreen></iframe>
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-header" style="font-weight:600; margin-bottom:5px;">Full Version</div>
+                        <div class="video-wrapper">
+                            <iframe src="https://share.descript.com/embed/w0TYUr3I0OO" width="640" height="360"
+                                frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
-                </div>
-                <div class="video-card">
-                    <div class="video-header" style="font-weight:600; margin-bottom:5px;">Full Version</div>
-                    <div class="video-wrapper">
-                        <iframe src="https://share.descript.com/embed/w0TYUr3I0OO" width="640" height="360"
-                            frameborder="0" allowfullscreen></iframe>
+                    <div class="video-card">
+                        <div class="video-header" style="font-weight:600; margin-bottom:5px;">Learning Module</div>
+                        <div class="video-wrapper">
+                            <iframe src="https://share.descript.com/embed/lkFEaxkwLHO" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
